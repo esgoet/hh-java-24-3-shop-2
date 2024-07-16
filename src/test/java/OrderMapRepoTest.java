@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,8 @@ class OrderMapRepoTest {
         OrderMapRepo repo = new OrderMapRepo();
 
         Product product = new Product("1", "Apfel");
-        Order newOrder = new Order("1", List.of(product), OrderStatus.PROCESSING);
+        Instant timestamp = Instant.now();
+        Order newOrder = new Order("1", List.of(product), OrderStatus.PROCESSING, timestamp);
         repo.addOrder(newOrder);
 
         //WHEN
@@ -22,7 +24,7 @@ class OrderMapRepoTest {
         //THEN
         List<Order> expected = new ArrayList<>();
         Product product1 = new Product("1", "Apfel");
-        expected.add(new Order("1", List.of(product1), OrderStatus.PROCESSING));
+        expected.add(new Order("1", List.of(product1), OrderStatus.PROCESSING,timestamp));
 
         assertEquals(actual, expected);
     }
@@ -33,7 +35,8 @@ class OrderMapRepoTest {
         OrderMapRepo repo = new OrderMapRepo();
 
         Product product = new Product("1", "Apfel");
-        Order newOrder = new Order("1", List.of(product), OrderStatus.PROCESSING);
+        Instant timestamp = Instant.now();
+        Order newOrder = new Order("1", List.of(product), OrderStatus.PROCESSING, timestamp);
         repo.addOrder(newOrder);
 
         //WHEN
@@ -41,7 +44,7 @@ class OrderMapRepoTest {
 
         //THEN
         Product product1 = new Product("1", "Apfel");
-        Order expected = new Order("1", List.of(product1), OrderStatus.PROCESSING);
+        Order expected = new Order("1", List.of(product1), OrderStatus.PROCESSING,timestamp);
 
         assertEquals(actual, expected);
     }
@@ -51,14 +54,15 @@ class OrderMapRepoTest {
         //GIVEN
         OrderMapRepo repo = new OrderMapRepo();
         Product product = new Product("1", "Apfel");
-        Order newOrder = new Order("1", List.of(product), OrderStatus.PROCESSING);
+        Instant timestamp = Instant.now();
+        Order newOrder = new Order("1", List.of(product), OrderStatus.PROCESSING, timestamp);
 
         //WHEN
         Order actual = repo.addOrder(newOrder);
 
         //THEN
         Product product1 = new Product("1", "Apfel");
-        Order expected = new Order("1", List.of(product1), OrderStatus.PROCESSING);
+        Order expected = new Order("1", List.of(product1), OrderStatus.PROCESSING, timestamp);
         assertEquals(actual, expected);
         assertEquals(repo.getOrderById("1"), expected);
     }
