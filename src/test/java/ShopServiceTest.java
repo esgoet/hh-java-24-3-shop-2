@@ -38,7 +38,7 @@ class ShopServiceTest {
     void getOrdersWithStatusTest_whenNoOrdersWithStatusExist_returnEmptyList() {
         //GIVEN
         ShopService shopService = new ShopService();
-        List<String> productsIds = List.of("1", "2");
+        List<String> productsIds = List.of("1");
         shopService.addOrder(productsIds);
 
         //WHEN
@@ -46,5 +46,38 @@ class ShopServiceTest {
 
         //THEN
         assertTrue(actual.isEmpty());
+    }
+
+    @Test
+    void getOrdersWithStatusTest_whenGivenStatus_thenOnlyReturnOrdersWithGivenStatus() {
+        //GIVEN
+        ShopService shopService = new ShopService();
+        List<String> productsIds = List.of("1");
+        Order processingOrder = shopService.addOrder(productsIds);
+        Order inDeliveryOrder = shopService.addOrder(productsIds);
+        inDeliveryOrder = shopService.updateOrder(inDeliveryOrder.id(),OrderStatus.IN_DELIVERY);
+        Order completedOrder = shopService.addOrder(productsIds);
+        completedOrder = shopService.updateOrder(completedOrder.id(),OrderStatus.COMPLETED);
+
+        //WHEN
+        List<Order> actual = shopService.getOrdersWithStatus(OrderStatus.COMPLETED);
+
+        //THEN
+        assertEquals(List.of(completedOrder), actual);
+    }
+
+    void updateOrderTest() {
+        //GIVEN
+        ShopService shopService = new ShopService();
+        List<String> productsIds = List.of("1");
+        Order savedOrder = shopService.addOrder(productsIds);
+
+        //WHEN
+        Order actual = shopService.updateOrder(savedOrder.id(), OrderStatus.IN_DELIVERY);
+
+        //THEN
+        Order expected = savedOrder.withStatus(OrderStatus.IN_DELIVERY);
+        assertEquals(actual, expected);
+
     }
 }
