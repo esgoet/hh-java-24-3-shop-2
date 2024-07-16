@@ -33,4 +33,18 @@ class ShopServiceTest {
         //THEN
         assertNull(actual);
     }
+
+    @Test
+    void getOrdersWithStatusTest_whenNoOrdersWithStatusExist_returnEmptyList() {
+        //GIVEN
+        ShopService shopService = new ShopService();
+        List<String> productsIds = List.of("1", "2");
+        shopService.addOrder(productsIds);
+
+        //WHEN
+        List<Order> actual = shopService.getOrdersWithStatus(OrderStatus.COMPLETED);
+
+        //THEN
+        assertTrue(actual.isEmpty());
+    }
 }
