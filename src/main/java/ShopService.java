@@ -1,11 +1,14 @@
+import lombok.RequiredArgsConstructor;
+
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 public class ShopService {
-    private ProductRepo productRepo = new ProductRepo();
-    private OrderRepo orderRepo = new OrderMapRepo();
+    private final ProductRepo productRepo;
+    private final OrderRepo orderRepo;
 
     public Order addOrder(List<String> productIds) {
         List<Product> products = new ArrayList<>();
@@ -14,7 +17,7 @@ public class ShopService {
                 Product productToOrder = productRepo.getProductById(productId).orElseThrow();
                 products.add(productToOrder);
             } catch (Exception e) {
-                System.out.println("Exception: " + e.getMessage());
+                System.out.println("Exception: Product mit der Id \"" + productId + "\" konnte nicht bestellt werden! --> " + e.getMessage());
                 return null;
             }
 //            if (productRepo.getProductById(productId).isPresent()) {
