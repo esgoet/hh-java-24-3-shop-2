@@ -10,10 +10,7 @@ import service.ShopService;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -51,11 +48,7 @@ public class Main {
             String[] subString = line.split(" ");
             switch (subString[0]) {
                 case "addOrder":
-                    List<String> productIds = new ArrayList<>();
-                    for (int i = 2; i < subString.length; i++) {
-                        productIds.add(subString[i]);
-                    }
-                    Order newOrder = shopService.addOrder(productIds);
+                    Order newOrder = shopService.addOrder(Arrays.stream(subString).toList().subList(2, subString.length));
                     aliasMap.put(subString[1], newOrder);
                     break;
                 case "setStatus":
