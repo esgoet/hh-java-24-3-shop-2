@@ -8,6 +8,7 @@ import product.ProductRepo;
 import service.IdService;
 import service.ShopService;
 
+import java.time.Instant;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -103,5 +104,25 @@ class ShopServiceTest {
         Order expected = savedOrder.withStatus(OrderStatus.IN_DELIVERY);
         assertEquals(actual, expected);
 
+    }
+
+    @Test
+    void getOldestOrderByStatusTest_whenTwoOrdersWithSameStatus_thenReturnOldest() {
+        //GIVEN
+        ProductRepo shopRepo = new ProductRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
+        IdService idService = new IdService();
+        ShopService shopService = new ShopService(shopRepo, orderRepo, idService);
+        List<String> productsIds = List.of("1");
+        Order firstOrder = shopService.addOrder(productsIds);
+        Order secondOrder = shopService.addOrder(productsIds);
+
+        //WHEN
+        Instant actual = shopService.getOldestOrderPerStatus().get(OrderStatus.PROCESSING).timestamp();
+        Instant expected = firstOrder.timestamp();
+
+        //THEN
+        assertEquals(expected, actual);
+        assertTrue(actual.isBefore(secondOrder.timestamp()));
     }
 }
