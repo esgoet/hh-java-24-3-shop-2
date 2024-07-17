@@ -12,7 +12,8 @@ class ShopServiceTest {
         //GIVEN
         ProductRepo shopRepo = new ProductRepo();
         OrderRepo orderRepo = new OrderMapRepo();
-        ShopService shopService = new ShopService(shopRepo, orderRepo);
+        IdService idService = new IdService();
+        ShopService shopService = new ShopService(shopRepo, orderRepo, idService);
         List<String> productsIds = List.of("1");
 
         //WHEN
@@ -29,7 +30,8 @@ class ShopServiceTest {
         //GIVEN
         ProductRepo shopRepo = new ProductRepo();
         OrderRepo orderRepo = new OrderMapRepo();
-        ShopService shopService = new ShopService(shopRepo, orderRepo);
+        IdService idService = new IdService();
+        ShopService shopService = new ShopService(shopRepo, orderRepo, idService);
         List<String> productsIds = List.of("1", "2");
 
         //WHEN
@@ -44,7 +46,8 @@ class ShopServiceTest {
         //GIVEN
         ProductRepo shopRepo = new ProductRepo();
         OrderRepo orderRepo = new OrderMapRepo();
-        ShopService shopService = new ShopService(shopRepo, orderRepo);
+        IdService idService = new IdService();
+        ShopService shopService = new ShopService(shopRepo, orderRepo, idService);
         List<String> productsIds = List.of("1");
         shopService.addOrder(productsIds);
 
@@ -60,7 +63,8 @@ class ShopServiceTest {
         //GIVEN
         ProductRepo shopRepo = new ProductRepo();
         OrderRepo orderRepo = new OrderMapRepo();
-        ShopService shopService = new ShopService(shopRepo, orderRepo);
+        IdService idService = new IdService();
+        ShopService shopService = new ShopService(shopRepo, orderRepo, idService);
         List<String> productsIds = List.of("1");
         Order processingOrder = shopService.addOrder(productsIds);
         Order inDeliveryOrder = shopService.addOrder(productsIds);
@@ -80,7 +84,8 @@ class ShopServiceTest {
         //GIVEN
         ProductRepo shopRepo = new ProductRepo();
         OrderRepo orderRepo = new OrderMapRepo();
-        ShopService shopService = new ShopService(shopRepo, orderRepo);
+        IdService idService = new IdService();
+        ShopService shopService = new ShopService(shopRepo, orderRepo, idService);
         List<String> productsIds = List.of("1");
         Order savedOrder = shopService.addOrder(productsIds);
 
