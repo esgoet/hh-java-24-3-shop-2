@@ -10,6 +10,7 @@ import service.ShopService;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -107,7 +108,7 @@ class ShopServiceTest {
     }
 
     @Test
-    void getOldestOrderByStatusTest_whenTwoOrdersWithSameStatus_thenReturnOldest() {
+    void getOldestOrderPerStatusTest_whenTwoOrdersWithSameStatus_thenReturnOldest() {
         //GIVEN
         ProductRepo shopRepo = new ProductRepo();
         OrderRepo orderRepo = new OrderMapRepo();
@@ -127,7 +128,7 @@ class ShopServiceTest {
     }
 
     @Test
-    void getOldestOrderByStatusTest_whenNoOrderWithStatus_thenReturnNull() {
+    void getOldestOrderPerStatusTest_whenNoOrderWithStatus_thenReturnNull() {
         //GIVEN
         ProductRepo shopRepo = new ProductRepo();
         OrderRepo orderRepo = new OrderMapRepo();
