@@ -23,8 +23,13 @@ public class Main {
         Order fruitOrder = shopService.addOrder(List.of("1", "2", "5"));
         Order vegetableOrder = shopService.addOrder(List.of("3", "4", "7"));
         Order fishOrder = shopService.addOrder(List.of("6"));
+        Order fruitAndVegOrder = shopService.addOrder(List.of("1","2","3","4"));
+
+        shopService.updateOrder(fruitOrder.id(), OrderStatus.IN_DELIVERY);
+        shopService.updateOrder(vegetableOrder.id(), OrderStatus.IN_DELIVERY);
 
         System.out.println(shopService.getOrdersWithStatus(OrderStatus.PROCESSING));
+        System.out.println(shopService.getOldestOrderPerStatus());
 
     }
 }
