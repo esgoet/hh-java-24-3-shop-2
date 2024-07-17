@@ -54,6 +54,10 @@ public class ShopService {
         return oldestOrderByStatusMap;
     }
 
+    public List<Order> getAllOrders() {
+        return orderRepo.getOrders();
+    }
+
     public Order updateOrder(String orderId, OrderStatus status) {
         return orderRepo.addOrder(orderRepo.getOrderById(orderId).withStatus(status));
     }
