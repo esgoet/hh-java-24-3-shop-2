@@ -1,6 +1,13 @@
+import order.Order;
+import order.OrderMapRepo;
+import order.OrderRepo;
+import order.OrderStatus;
 import org.junit.jupiter.api.Test;
+import product.Product;
+import product.ProductRepo;
+import service.IdService;
+import service.ShopService;
 
-import java.time.Instant;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +27,7 @@ class ShopServiceTest {
         Order actual = shopService.addOrder(productsIds);
 
         //THEN
-        Order expected = new Order("-1", List.of(new Product("1", "Apfel")),OrderStatus.PROCESSING, actual.timestamp());
+        Order expected = new Order("-1", List.of(new Product("1", "Apfel")), OrderStatus.PROCESSING, actual.timestamp());
         assertEquals(expected.products(), actual.products());
         assertNotNull(expected.id());
     }

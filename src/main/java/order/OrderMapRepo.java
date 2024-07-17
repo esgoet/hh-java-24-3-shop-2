@@ -1,10 +1,12 @@
+package order;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class OrderMapRepo implements OrderRepo{
-    private Map<String, Order> orders = new HashMap<>();
+public class OrderMapRepo implements OrderRepo {
+    private final Map<String, Order> orders = new HashMap<>();
 
     @Override
     public List<Order> getOrders() {

@@ -1,4 +1,7 @@
+package order;
+
 import lombok.With;
+import product.Product;
 
 import java.time.Instant;
 import java.util.List;

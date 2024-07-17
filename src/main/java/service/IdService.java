@@ -1,10 +1,12 @@
+package service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 
 public class IdService {
-    List<UUID> generatedIds = new ArrayList<>();
+    private final List<UUID> generatedIds = new ArrayList<>();
 
     public UUID generateId() {
         UUID newId = UUID.randomUUID();

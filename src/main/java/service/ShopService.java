@@ -1,9 +1,15 @@
+package service;
+
 import lombok.RequiredArgsConstructor;
+import order.Order;
+import order.OrderRepo;
+import order.OrderStatus;
+import product.Product;
+import product.ProductRepo;
 
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 public class ShopService {
@@ -18,15 +24,9 @@ public class ShopService {
                 Product productToOrder = productRepo.getProductById(productId).orElseThrow();
                 products.add(productToOrder);
             } catch (Exception e) {
-                System.out.println("Exception: Product mit der Id \"" + productId + "\" konnte nicht bestellt werden! --> " + e.getMessage());
+                System.out.println("Exception: product.Product mit der Id \"" + productId + "\" konnte nicht bestellt werden! --> " + e.getMessage());
                 return null;
             }
-//            if (productRepo.getProductById(productId).isPresent()) {
-//                products.add(productRepo.getProductById(productId).get());
-//            } else {
-//                System.out.println("Product mit der Id: " + productId + " konnte nicht bestellt werden!");
-//                return null;
-//            }
         }
 
         Order newOrder = new Order(idService.generateId().toString(), products, OrderStatus.PROCESSING, Instant.now());
