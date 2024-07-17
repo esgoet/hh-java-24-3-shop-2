@@ -1,3 +1,5 @@
+package service;
+
 import order.Order;
 import order.OrderMapRepo;
 import order.OrderRepo;
@@ -5,8 +7,6 @@ import order.OrderStatus;
 import org.junit.jupiter.api.Test;
 import product.Product;
 import product.ProductRepo;
-import service.IdService;
-import service.ShopService;
 
 import java.time.Instant;
 import java.util.List;
