@@ -1,10 +1,12 @@
 package service;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
+@Getter
 public class IdService {
     private final List<UUID> generatedIds = new ArrayList<>();
 
