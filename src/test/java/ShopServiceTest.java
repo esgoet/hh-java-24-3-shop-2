@@ -125,4 +125,19 @@ class ShopServiceTest {
         assertEquals(expected, actual);
         assertTrue(actual.isBefore(secondOrder.timestamp()));
     }
+
+    @Test
+    void getOldestOrderByStatusTest_whenNoOrderWithStatus_thenReturnNull() {
+        //GIVEN
+        ProductRepo shopRepo = new ProductRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
+        IdService idService = new IdService();
+        ShopService shopService = new ShopService(shopRepo, orderRepo, idService);
+
+        //WHEN
+        Order actual = shopService.getOldestOrderPerStatus().get(OrderStatus.PROCESSING);
+
+        //THEN
+        assertNull(actual);
+    }
 }
