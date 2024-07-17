@@ -9,7 +9,9 @@ import product.ProductRepo;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 public class ShopService {
@@ -36,6 +38,20 @@ public class ShopService {
 
     public List<Order> getOrdersWithStatus(OrderStatus orderStatus) {
         return orderRepo.getOrders().stream().filter(order -> order.status().equals(orderStatus)).toList();
+    }
+
+    public Map<OrderStatus, Order> getOldestOrderPerStatus() {
+        Map<OrderStatus, Order> oldestOrderByStatusMap = new HashMap<>();
+        for (OrderStatus status : OrderStatus.values()) {
+            try {
+                Order order = getOrdersWithStatus(status).stream().reduce((a,b) -> a.timestamp().isBefore(b.timestamp()) ? a : b).orElseThrow();
+                oldestOrderByStatusMap.put(status, order);
+            } catch (Exception e) {
+                System.out.println("No order present with status: " + status);
+                oldestOrderByStatusMap.put(status, null);
+            }
+        }
+        return oldestOrderByStatusMap;
     }
 
     public Order updateOrder(String orderId, OrderStatus status) {

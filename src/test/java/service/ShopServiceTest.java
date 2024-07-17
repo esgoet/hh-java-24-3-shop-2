@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 import product.Product;
 import product.ProductRepo;
 
+import java.time.Instant;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -103,5 +105,40 @@ class ShopServiceTest {
         Order expected = savedOrder.withStatus(OrderStatus.IN_DELIVERY);
         assertEquals(actual, expected);
 
+    }
+
+    @Test
+    void getOldestOrderPerStatusTest_whenTwoOrdersWithSameStatus_thenReturnOldest() {
+        //GIVEN
+        ProductRepo shopRepo = new ProductRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
+        IdService idService = new IdService();
+        ShopService shopService = new ShopService(shopRepo, orderRepo, idService);
+        List<String> productsIds = List.of("1");
+        Order firstOrder = shopService.addOrder(productsIds);
+        Order secondOrder = shopService.addOrder(productsIds);
+
+        //WHEN
+        Instant actual = shopService.getOldestOrderPerStatus().get(OrderStatus.PROCESSING).timestamp();
+        Instant expected = firstOrder.timestamp();
+
+        //THEN
+        assertEquals(expected, actual);
+        assertTrue(actual.isBefore(secondOrder.timestamp()));
+    }
+
+    @Test
+    void getOldestOrderPerStatusTest_whenNoOrderWithStatus_thenReturnNull() {
+        //GIVEN
+        ProductRepo shopRepo = new ProductRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
+        IdService idService = new IdService();
+        ShopService shopService = new ShopService(shopRepo, orderRepo, idService);
+
+        //WHEN
+        Order actual = shopService.getOldestOrderPerStatus().get(OrderStatus.PROCESSING);
+
+        //THEN
+        assertNull(actual);
     }
 }
