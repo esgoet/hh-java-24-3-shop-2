@@ -1,6 +1,5 @@
-import order.Order;
-import order.OrderMapRepo;
-import order.OrderStatus;
+package order;
+
 import org.junit.jupiter.api.Test;
 import product.Product;
 
