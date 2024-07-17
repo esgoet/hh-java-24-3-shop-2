@@ -9,7 +9,8 @@ public class Main {
             shopRepo.addProduct(newProduct);
         }
         OrderRepo orderRepo = new OrderMapRepo();
-        ShopService shopService = new ShopService(shopRepo, orderRepo);
+        IdService idService = new IdService();
+        ShopService shopService = new ShopService(shopRepo, orderRepo, idService);
         Order fruitOrder = shopService.addOrder(List.of("1","2","5"));
         Order vegetableOrder = shopService.addOrder(List.of("3","4","7"));
         Order fishOrder = shopService.addOrder(List.of("6"));
