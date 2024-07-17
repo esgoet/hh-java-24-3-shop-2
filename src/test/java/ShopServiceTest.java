@@ -10,7 +10,9 @@ class ShopServiceTest {
     @Test
     void addOrderTest() {
         //GIVEN
-        ShopService shopService = new ShopService();
+        ProductRepo shopRepo = new ProductRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
+        ShopService shopService = new ShopService(shopRepo, orderRepo);
         List<String> productsIds = List.of("1");
 
         //WHEN
@@ -25,7 +27,9 @@ class ShopServiceTest {
     @Test
     void addOrderTest_whenInvalidProductId_expectNull() {
         //GIVEN
-        ShopService shopService = new ShopService();
+        ProductRepo shopRepo = new ProductRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
+        ShopService shopService = new ShopService(shopRepo, orderRepo);
         List<String> productsIds = List.of("1", "2");
 
         //WHEN
@@ -38,7 +42,9 @@ class ShopServiceTest {
     @Test
     void getOrdersWithStatusTest_whenNoOrdersWithStatusExist_returnEmptyList() {
         //GIVEN
-        ShopService shopService = new ShopService();
+        ProductRepo shopRepo = new ProductRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
+        ShopService shopService = new ShopService(shopRepo, orderRepo);
         List<String> productsIds = List.of("1");
         shopService.addOrder(productsIds);
 
@@ -52,7 +58,9 @@ class ShopServiceTest {
     @Test
     void getOrdersWithStatusTest_whenGivenStatus_thenOnlyReturnOrdersWithGivenStatus() {
         //GIVEN
-        ShopService shopService = new ShopService();
+        ProductRepo shopRepo = new ProductRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
+        ShopService shopService = new ShopService(shopRepo, orderRepo);
         List<String> productsIds = List.of("1");
         Order processingOrder = shopService.addOrder(productsIds);
         Order inDeliveryOrder = shopService.addOrder(productsIds);
@@ -70,7 +78,9 @@ class ShopServiceTest {
     @Test
     void updateOrderTest() {
         //GIVEN
-        ShopService shopService = new ShopService();
+        ProductRepo shopRepo = new ProductRepo();
+        OrderRepo orderRepo = new OrderMapRepo();
+        ShopService shopService = new ShopService(shopRepo, orderRepo);
         List<String> productsIds = List.of("1");
         Order savedOrder = shopService.addOrder(productsIds);
 
